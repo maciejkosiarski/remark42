@@ -1,0 +1,43 @@
+services:
+  remark42:
+    image: umputun/remark42:latest
+    env_file: .env
+    volumes:
+      - remark42_data:/srv/var
+    restart: unless-stopped
+    mem_limit: 200m
+    networks:
+      - edge
+    labels:
+      caddy: ":40147"
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    profiles: ["standalone"]
+    image: caddy:alpine
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - edge
+    restart: unless-stopped
+    mem_limit: 50m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  remark42_data:
+
+networks:
+  edge:
+    name: edge
+    external: true

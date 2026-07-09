@@ -1,0 +1,6 @@
+# Standalone profile only (dev / local test).
+# On the VPS with `../infra` (caddy-docker-proxy) routing comes from labels
+# in compose.yaml — this file is not used in that case.
+:{$PORT} {
+    reverse_proxy remark42:8080
+}
