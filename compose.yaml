@@ -9,7 +9,7 @@ services:
     networks:
       - edge
     labels:
-      caddy: ":40147"
+      caddy: ":40152"
       caddy.reverse_proxy: "{{upstreams 8080}}"
     logging:
       driver: "json-file"
