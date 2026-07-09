@@ -1,6 +1,7 @@
 services:
   remark42:
     image: umputun/remark42:latest
+    container_name: klikukliku-remark42
     env_file: .env
     volumes:
       - remark42_data:/srv/var
